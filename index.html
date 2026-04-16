@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clínica Dental Estética — Sonrisas de precisión</title>
+  <meta name="description" content="Ortodoncia estética, implantes y carillas de alta precisión. Tu sonrisa perfecta." />
+
+  <!-- Fonts: Cormorant Garamond (display) + Inter (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- =========================================================
+       NAVIGATION
+  ========================================================== -->
+  <nav class="nav" id="main-nav" aria-label="Navegación principal">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="Inicio">Clínica Dental</a>
+      <ul class="nav-links" role="list">
+        <li><a href="#tratamientos">Tratamientos</a></li>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#contacto" class="nav-cta">Consulta</a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <!-- =========================================================
+       HERO — SCROLL-DRIVEN CANVAS ANIMATION
+       The section is very tall (650vh) so the user scrolls
+       through it. Inside, a sticky 100vh container holds:
+         • A <canvas> that renders extracted frames
+         • A loading overlay shown while frames preload
+         • An elegant text overlay that fades on scroll
+         • A subtle scroll indicator
+  ========================================================== -->
+  <section
+    class="scroll-section"
+    id="hero-section"
+    aria-label="Animación de tratamiento dental"
+  >
+    <div class="sticky-container">
+
+      <!-- Frame canvas — filled by script.js -->
+      <canvas id="hero-canvas" aria-hidden="true"></canvas>
+
+      <!-- Loading overlay — shown while frames are preloading -->
+      <div class="loading-overlay" id="loading-overlay" aria-live="polite" aria-label="Cargando animación">
+        <div class="loading-body">
+          <div class="loading-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="loading-progressbar">
+            <div class="loading-fill" id="loading-fill"></div>
+          </div>
+          <span class="loading-label" id="loading-label">Preparando</span>
+        </div>
+      </div>
+
+      <!-- Hero text overlay — fades as animation begins -->
+      <div class="hero-text" id="hero-text">
+        <div class="hero-content">
+          <span class="hero-eyebrow">Clínica Dental Estética</span>
+          <h1 class="hero-headline">
+            Tu sonrisa,<br>
+            <em>perfecta.</em>
+          </h1>
+          <p class="hero-sub">
+            Transformación estética con precisión clínica.<br>
+            Resultados extraordinarios, para siempre.
+          </p>
+          <a
+            href="#contacto"
+            class="btn-primary hero-btn"
+            aria-label="Solicitar primera consulta gratuita"
+          >
+            Solicitar consulta
+          </a>
+        </div>
+      </div>
+
+      <!-- Scroll indicator -->
+      <div class="scroll-indicator" id="scroll-indicator" aria-hidden="true">
+        <span class="scroll-line"></span>
+        <span class="scroll-label">Descubre</span>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================================
+       TREATMENTS
+  ========================================================== -->
+  <section class="section treatments-section" id="tratamientos">
+    <div class="container">
+
+      <header class="section-header reveal">
+        <span class="section-eyebrow">Tratamientos</span>
+        <h2 class="section-title">
+          Cada tratamiento,<br>una obra de precisión.
+        </h2>
+      </header>
+
+      <div class="treatments-grid">
+
+        <article class="treatment-card reveal" style="--delay: 0s">
+          <span class="treatment-num">01</span>
+          <div class="treatment-body">
+            <h3 class="treatment-name">Ortodoncia Estética</h3>
+            <p class="treatment-desc">
+              Alineadores invisibles de última generación.
+              Corrección discreta para una sonrisa que transforma.
+            </p>
+          </div>
+        </article>
+
+        <article class="treatment-card reveal" style="--delay: 0.08s">
+          <span class="treatment-num">02</span>
+          <div class="treatment-body">
+            <h3 class="treatment-name">Implantes Dentales</h3>
+            <p class="treatment-desc">
+              Integración permanente con estética natural.
+              Tecnología de implantología de precisión submilimétrica.
+            </p>
+          </div>
+        </article>
+
+        <article class="treatment-card reveal" style="--delay: 0.16s">
+          <span class="treatment-num">03</span>
+          <div class="treatment-body">
+            <h3 class="treatment-name">Carillas de Porcelana</h3>
+            <p class="treatment-desc">
+              Porcelana de alta resistencia, ultrafina.
+              La perfección visible en cada detalle.
+            </p>
+          </div>
+        </article>
+
+        <article class="treatment-card reveal" style="--delay: 0.24s">
+          <span class="treatment-num">04</span>
+          <div class="treatment-body">
+            <h3 class="treatment-name">Blanqueamiento Clínico</h3>
+            <p class="treatment-desc">
+              Protocolo profesional de alta intensidad.
+              Resultados inmediatos, seguros y duraderos.
+            </p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================================================
+       RESULTS / TRUST
+  ========================================================== -->
+  <section class="section results-section" id="nosotros">
+    <div class="container">
+      <div class="results-layout">
+
+        <div class="results-left reveal">
+          <span class="section-eyebrow">Resultados</span>
+          <h2 class="section-title results-title">
+            Más de una<br>década de<br>excelencia.
+          </h2>
+        </div>
+
+        <div class="results-right">
+          <div class="stats-grid">
+            <div class="stat reveal" style="--delay: 0s">
+              <span class="stat-num">3.200+</span>
+              <span class="stat-label">Sonrisas transformadas</span>
+            </div>
+            <div class="stat reveal" style="--delay: 0.08s">
+              <span class="stat-num">98%</span>
+              <span class="stat-label">Satisfacción clínica</span>
+            </div>
+            <div class="stat reveal" style="--delay: 0.16s">
+              <span class="stat-num">12</span>
+              <span class="stat-label">Años de especialización</span>
+            </div>
+            <div class="stat reveal" style="--delay: 0.24s">
+              <span class="stat-num">4</span>
+              <span class="stat-label">Especialistas certificados</span>
+            </div>
+          </div>
+
+          <blockquote class="results-quote reveal" style="--delay: 0.32s">
+            "La precisión no es un estándar.<br>
+            Es nuestra única forma de trabajar."
+          </blockquote>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================================================
+       FINAL CTA
+  ========================================================== -->
+  <section class="section cta-section" id="contacto">
+    <div class="container">
+      <div class="cta-inner reveal">
+        <span class="section-eyebrow">Primera consulta</span>
+        <h2 class="cta-title">
+          El primer paso<br>hacia tu mejor sonrisa.
+        </h2>
+        <p class="cta-sub">
+          Diagnóstico completo y plan de tratamiento personalizado.<br>
+          Sin compromiso. Con transparencia total desde el primer día.
+        </p>
+        <a
+          href="mailto:hola@clinicadental.com"
+          class="btn-primary btn-large"
+          aria-label="Reservar primera consulta gratuita"
+        >
+          Reservar mi consulta
+        </a>
+        <p class="cta-contact">
+          O llámanos directamente:&nbsp;
+          <a href="tel:+34000000000" class="cta-phone">+34 000 000 000</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================================================
+       FOOTER
+  ========================================================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <span class="footer-logo">Clínica Dental Estética</span>
+        <nav class="footer-nav" aria-label="Navegación de pie de página">
+          <a href="#tratamientos">Tratamientos</a>
+          <a href="#nosotros">Nosotros</a>
+          <a href="#contacto">Contacto</a>
+        </nav>
+        <span class="footer-legal">&copy; 2025 Clínica Dental Estética. Todos los derechos reservados.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

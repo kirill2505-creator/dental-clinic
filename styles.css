@@ -1,0 +1,776 @@
+/* ===========================================================================
+   DENTAL CLINIC — PREMIUM CSS
+   Design language: white, minimal, clinical luxury.
+   Inspired by high-end cosmetic clinics and Apple product pages.
+   =========================================================================== */
+
+/* ── Reset ─────────────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Design tokens ─────────────────────────────────────────────────────────── */
+:root {
+  /* Palette — mostly white with very soft neutrals */
+  --white:        #ffffff;
+  --surface:      #f7f7f5;
+  --border:       #e8e8e4;
+  --text:         #18181b;
+  --text-mid:     #6b6b68;
+  --text-muted:   #a8a8a4;
+
+  /* Typography */
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-sans:    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* Layout */
+  --nav-h:        64px;
+  --max-w:        1200px;
+  --pad-x:        clamp(24px, 6vw, 88px);
+  --section-py:   clamp(80px, 12vw, 160px);
+
+  /* Timing */
+  --ease-out:     cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── Base ──────────────────────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--white);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ── Shared typographic elements ───────────────────────────────────────────── */
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+/* ── Container ─────────────────────────────────────────────────────────────── */
+.container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--pad-x);
+}
+
+/* ── Section label (eyebrow text) ──────────────────────────────────────────── */
+.section-eyebrow {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+/* ── Section title ─────────────────────────────────────────────────────────── */
+.section-title {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 400;
+  color: var(--text);
+}
+
+/* ── Section base ──────────────────────────────────────────────────────────── */
+.section {
+  padding: var(--section-py) 0;
+}
+
+/* ── Reveal animation (IntersectionObserver driven) ───────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.9s var(--ease-out),
+    transform 0.9s var(--ease-out);
+  transition-delay: var(--delay, 0s);
+}
+
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Button ────────────────────────────────────────────────────────────────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 38px;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--white);
+  background: var(--text);
+  border: 1px solid var(--text);
+  border-radius: 2px;
+  cursor: pointer;
+  transition:
+    background 0.28s ease,
+    color 0.28s ease;
+}
+
+.btn-primary:hover {
+  background: transparent;
+  color: var(--text);
+}
+
+.btn-large {
+  padding: 18px 56px;
+  font-size: 0.875rem;
+}
+
+/* ===========================================================================
+   NAVIGATION
+   =========================================================================== */
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: var(--nav-h);
+  /* Transparent by default; becomes frosted glass on scroll via .scrolled class */
+  transition:
+    background 0.4s ease,
+    border-color 0.4s ease,
+    -webkit-backdrop-filter 0.4s ease,
+    backdrop-filter 0.4s ease;
+}
+
+.nav.scrolled {
+  background: rgba(255, 255, 255, 0.88);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--pad-x);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 2.75rem;
+}
+
+.nav-links a {
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-mid);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: var(--text);
+}
+
+/* CTA link in nav — underlined */
+.nav-cta {
+  color: var(--text) !important;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+}
+
+/* ===========================================================================
+   HERO — SCROLL SECTION
+   =========================================================================== */
+
+/* The tall section creates the scroll range */
+.scroll-section {
+  position: relative;
+  height: 650vh;       /* ~6.5× viewport — controls how long the animation lasts */
+}
+
+/* The sticky inner container stays fixed at the top of the viewport */
+.sticky-container {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--white);
+}
+
+/* ── Canvas ────────────────────────────────────────────────────────────────── */
+#hero-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  /* White background for letterbox areas in the contain layout */
+  background: var(--white);
+}
+
+/* ── Loading overlay ───────────────────────────────────────────────────────── */
+.loading-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.9s var(--ease-out);
+}
+
+.loading-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loading-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+/* Thin loading progress bar — surgical, minimal */
+.loading-track {
+  width: 220px;
+  height: 1px;
+  background: var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.loading-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0%;
+  background: var(--text);
+  transition: width 0.12s ease;
+}
+
+.loading-label {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ── Hero text overlay ─────────────────────────────────────────────────────── */
+.hero-text {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;        /* Pass scroll events through */
+  /* Invisible until loading completes; controlled via body.loaded class */
+  opacity: 0;
+  transition: opacity 0.9s var(--ease-out) 0.2s;
+}
+
+/* Make interactive elements clickable when text is visible */
+.hero-text .btn-primary {
+  pointer-events: auto;
+}
+
+body.loaded .hero-text {
+  opacity: 1;
+}
+
+.hero-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.75rem;
+  padding: 0 var(--pad-x);
+  max-width: 720px;
+  /* Offset for nav so text is visually centered in the content area */
+  margin-top: calc(var(--nav-h) * 0.5);
+}
+
+.hero-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-mid);
+}
+
+.hero-headline {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 8.5vw, 7.5rem);
+  font-weight: 300;
+  line-height: 0.97;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  /*
+    Subtle white glow: ensures the dark text remains legible
+    even if the canvas frame beneath is dark.
+  */
+  text-shadow:
+    0 0 80px rgba(255, 255, 255, 0.95),
+    0 0 40px rgba(255, 255, 255, 0.85),
+    0 0 16px rgba(255, 255, 255, 0.7);
+}
+
+.hero-headline em {
+  font-style: italic;
+  font-weight: 300;
+}
+
+.hero-sub {
+  font-size: clamp(0.875rem, 1.6vw, 1.0625rem);
+  font-weight: 300;
+  color: var(--text-mid);
+  line-height: 1.7;
+  max-width: 420px;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.9);
+}
+
+.hero-btn {
+  pointer-events: auto;
+}
+
+/* ── Scroll indicator ──────────────────────────────────────────────────────── */
+.scroll-indicator {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+body.loaded .scroll-indicator {
+  opacity: 1;
+}
+
+.scroll-line {
+  width: 1px;
+  height: 44px;
+  background: var(--text-muted);
+  display: block;
+  transform-origin: top;
+  animation: scroll-breathe 2.2s ease-in-out infinite;
+}
+
+@keyframes scroll-breathe {
+  0%, 100% { transform: scaleY(1);   opacity: 0.9; }
+  50%       { transform: scaleY(0.3); opacity: 0.25; }
+}
+
+.scroll-label {
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ===========================================================================
+   TREATMENTS SECTION
+   =========================================================================== */
+
+.treatments-section {
+  border-top: 1px solid var(--border);
+}
+
+.section-header {
+  margin-bottom: clamp(52px, 8vw, 100px);
+  max-width: 560px;
+}
+
+.section-header .section-title {
+  margin-top: 0;
+}
+
+/* 4-column grid with thin dividers — no cards, no shadows */
+.treatments-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.treatment-card {
+  padding: 0 2.5rem 0 0;
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.treatment-card:first-child {
+  padding-left: 0;
+}
+
+.treatment-card:not(:first-child) {
+  padding-left: 2.5rem;
+}
+
+.treatment-card:last-child {
+  border-right: none;
+  padding-right: 0;
+}
+
+.treatment-num {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.treatment-name {
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1.2;
+  margin-bottom: 0.875rem;
+}
+
+.treatment-desc {
+  font-size: 0.875rem;
+  font-weight: 300;
+  color: var(--text-mid);
+  line-height: 1.75;
+}
+
+/* ===========================================================================
+   RESULTS / TRUST SECTION
+   =========================================================================== */
+
+.results-section {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.results-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: clamp(56px, 10vw, 140px);
+  align-items: start;
+}
+
+.results-title {
+  font-size: clamp(2.25rem, 5vw, 4.5rem);
+  line-height: 1.04;
+}
+
+/* 2×2 stat grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem 4rem;
+  margin-bottom: 3.5rem;
+}
+
+.stat-num {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 300;
+  color: var(--text);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 300;
+  color: var(--text-mid);
+  letter-spacing: 0.01em;
+}
+
+/* Restrained pull quote */
+.results-quote {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 1.5vw, 1.1875rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--text-mid);
+  line-height: 1.65;
+  border-left: 1px solid var(--border);
+  padding-left: 1.75rem;
+}
+
+/* ===========================================================================
+   CTA SECTION
+   =========================================================================== */
+
+.cta-section {
+  border-top: 1px solid var(--border);
+}
+
+.cta-inner {
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.75rem;
+}
+
+.cta-title {
+  font-size: clamp(2.5rem, 5.5vw, 4.75rem);
+  font-weight: 300;
+  color: var(--text);
+  line-height: 1.04;
+}
+
+.cta-sub {
+  font-size: 0.9375rem;
+  font-weight: 300;
+  color: var(--text-mid);
+  line-height: 1.75;
+  max-width: 440px;
+}
+
+.cta-contact {
+  font-size: 0.8125rem;
+  font-weight: 300;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+.cta-phone {
+  color: var(--text-mid);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.cta-phone:hover {
+  color: var(--text);
+  border-color: var(--text);
+}
+
+/* ===========================================================================
+   FOOTER
+   =========================================================================== */
+
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 2rem 0;
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.footer-logo {
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: var(--text);
+}
+
+.footer-nav {
+  display: flex;
+  gap: 2.25rem;
+}
+
+.footer-nav a {
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-mid);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-nav a:hover {
+  color: var(--text);
+}
+
+.footer-legal {
+  font-size: 0.75rem;
+  font-weight: 300;
+  color: var(--text-muted);
+}
+
+/* ===========================================================================
+   REDUCED MOTION — Accessibility
+   =========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .scroll-line {
+    animation: none;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .hero-text,
+  .scroll-indicator {
+    transition: none;
+  }
+
+  /* Show static first frame; hero text always visible */
+  body.loaded .hero-text {
+    opacity: 1;
+  }
+}
+
+/* ===========================================================================
+   RESPONSIVE
+   =========================================================================== */
+
+/* ── Tablet ─────────────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .treatments-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+  }
+
+  .treatment-card {
+    padding: 2.25rem 2rem !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .treatment-card:nth-child(odd) {
+    border-right: 1px solid var(--border) !important;
+  }
+
+  .treatment-card:nth-last-child(-n+2) {
+    border-bottom: none;
+  }
+
+  .results-layout {
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+  }
+
+  .results-title {
+    font-size: clamp(2.25rem, 6vw, 3.5rem);
+  }
+}
+
+/* ── Mobile ─────────────────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  :root {
+    --nav-h: 56px;
+  }
+
+  /* Hide non-essential nav items */
+  .nav-links li:not(:last-child) {
+    display: none;
+  }
+
+  .scroll-section {
+    height: 500vh;   /* Slightly shorter on mobile for better UX */
+  }
+
+  .hero-headline {
+    font-size: clamp(2.75rem, 13vw, 3.75rem);
+  }
+
+  .hero-sub {
+    font-size: 0.9375rem;
+  }
+
+  /* Single column treatments */
+  .treatments-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .treatment-card {
+    border-right: none !important;
+    border-bottom: 1px solid var(--border) !important;
+    padding: 2rem 0 !important;
+  }
+
+  .treatment-card:last-child {
+    border-bottom: none !important;
+  }
+
+  /* Single column stats */
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+
+  .footer-nav {
+    gap: 1.5rem;
+  }
+
+  .footer-legal {
+    order: 3;
+  }
+}
+
+@media (max-width: 400px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}

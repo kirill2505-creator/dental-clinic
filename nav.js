@@ -38,6 +38,62 @@ window.addEventListener('scroll', () => {
   mainNavEl?.classList.toggle('scrolled', window.scrollY > 10);
 }, { passive: true });
 
+// ── Custom cursor ──────────────────────────────────────────────────────────────
+if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+  const dot  = document.createElement('div');
+  const ring = document.createElement('div');
+  dot.className  = 'cursor-dot';
+  ring.className = 'cursor-ring';
+  document.body.append(dot, ring);
+
+  let mx = -100, my = -100, rx = -100, ry = -100;
+  let rafRunning = false;
+
+  document.addEventListener('mousemove', (e) => {
+    mx = e.clientX;
+    my = e.clientY;
+    dot.style.transform  = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
+    if (!rafRunning) {
+      rafRunning = true;
+      requestAnimationFrame(lerpRing);
+    }
+  });
+
+  function lerpRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
+    const d = Math.hypot(mx - rx, my - ry);
+    rafRunning = d > 0.3;
+    if (rafRunning) requestAnimationFrame(lerpRing);
+  }
+
+  const hoverables = 'a, button, [role="button"], input, label, select, textarea, .treatment-card, .faq-question';
+  document.addEventListener('mouseover', (e) => {
+    if (e.target.closest(hoverables)) {
+      dot.classList.add('is-hovering');
+      ring.classList.add('is-hovering');
+    }
+  });
+  document.addEventListener('mouseout', (e) => {
+    if (e.target.closest(hoverables)) {
+      dot.classList.remove('is-hovering');
+      ring.classList.remove('is-hovering');
+    }
+  });
+
+  // Dark sections
+  const menuOv = document.getElementById('menu-overlay');
+  if (menuOv) {
+    const mo = new MutationObserver(() => {
+      const dark = menuOv.classList.contains('open');
+      dot.classList.toggle('on-dark', dark);
+      ring.classList.toggle('on-dark', dark);
+    });
+    mo.observe(menuOv, { attributes: true, attributeFilter: ['class'] });
+  }
+}
+
 // ── Page transitions ───────────────────────────────────────────────────────────
 document.addEventListener('click', (e) => {
   const link = e.target.closest('a[href]');

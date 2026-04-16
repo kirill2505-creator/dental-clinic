@@ -776,6 +776,123 @@ body.loaded .scroll-indicator {
 }
 
 /* ===========================================================================
+   GRAIN OVERLAY — premium texture
+   =========================================================================== */
+
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9000;
+  opacity: 0.048;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  mix-blend-mode: multiply;
+}
+
+/* ===========================================================================
+   CUSTOM CURSOR
+   =========================================================================== */
+
+@media (hover: hover) and (pointer: fine) {
+  * { cursor: none !important; }
+
+  .cursor-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    background: var(--text);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s var(--ease-out), height 0.3s var(--ease-out), background 0.3s ease, opacity 0.3s ease;
+    will-change: transform;
+  }
+
+  .cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 32px;
+    height: 32px;
+    border: 1px solid rgba(24, 24, 27, 0.35);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: width 0.45s var(--ease-out), height 0.45s var(--ease-out), border-color 0.3s ease, opacity 0.3s ease;
+    will-change: transform;
+  }
+
+  .cursor-dot.is-hovering {
+    width: 10px;
+    height: 10px;
+  }
+
+  .cursor-ring.is-hovering {
+    width: 48px;
+    height: 48px;
+    border-color: rgba(24, 24, 27, 0.18);
+  }
+
+  .cursor-dot.on-dark { background: var(--white); }
+  .cursor-ring.on-dark { border-color: rgba(255, 255, 255, 0.3); }
+}
+
+/* ===========================================================================
+   MARQUEE STRIP
+   =========================================================================== */
+
+.marquee-strip {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+  padding: 0.875rem 0;
+  background: var(--white);
+  position: relative;
+  z-index: 1;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 28s linear infinite;
+  gap: 0;
+}
+
+.marquee-track:hover { animation-play-state: paused; }
+
+.marquee-item {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  padding: 0 2.5rem;
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--text-mid);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.marquee-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  flex-shrink: 0;
+}
+
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ===========================================================================
    HAMBURGER BUTTON
    =========================================================================== */
 
@@ -1547,6 +1664,101 @@ body.page-exit .page-main {
 .treatment-link:hover {
   color: var(--text);
   gap: 0.875rem;
+}
+
+/* ===========================================================================
+   TREATMENT CARD — big number reveal on hover
+   =========================================================================== */
+
+.treatment-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.treatment-num {
+  transition: transform 0.6s var(--ease-out), font-size 0.6s var(--ease-out), color 0.4s ease, opacity 0.4s ease;
+  transform-origin: top left;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+
+.treatment-card:hover .treatment-num {
+  font-size: 5rem;
+  color: var(--border);
+  font-family: var(--font-display);
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  transform: translateY(-0.1em);
+}
+
+.treatment-body { position: relative; z-index: 1; }
+
+/* Animated underline on nav/footer links */
+.nav-links a,
+.footer-col ul a,
+.menu-sub-list a {
+  position: relative;
+}
+
+.footer-col ul a::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--text);
+  transition: width 0.3s var(--ease-out);
+}
+
+.footer-col ul a:hover::after { width: 100%; }
+
+/* Stat number — larger, more dramatic */
+.stat-num {
+  font-size: clamp(3rem, 6vw, 5rem);
+  letter-spacing: -0.04em;
+}
+
+/* Bold CTA title */
+.cta-title {
+  font-size: clamp(3rem, 6.5vw, 5.5rem);
+}
+
+/* Hero headline — pushed a little larger */
+.hero-headline {
+  font-size: clamp(4rem, 10vw, 9rem);
+}
+
+/* Staggered char reveal utility */
+.reveal-chars {
+  overflow: hidden;
+}
+
+.reveal-chars .char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(60%) rotate(3deg);
+  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+}
+
+.reveal-chars.in-view .char {
+  opacity: 1;
+  transform: translateY(0) rotate(0deg);
+}
+
+/* Page hero title — more dramatic sizing */
+.page-hero-title {
+  font-size: clamp(3.5rem, 10vw, 8rem);
+}
+
+/* Diagonal separator */
+.section-divider {
+  height: 1px;
+  background: var(--border);
+  position: relative;
+  overflow: visible;
 }
 
 /* ===========================================================================

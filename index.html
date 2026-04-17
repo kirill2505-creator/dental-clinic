@@ -233,25 +233,61 @@
   </section>
 
 
-  <!-- CTA -->
-  <section class="section cta-section" id="contacto">
+  <!-- CONTACT -->
+  <section class="section contact-section" id="contacto">
     <div class="container">
-      <div class="cta-inner reveal">
-        <span class="section-eyebrow">Primera consulta</span>
-        <h2 class="cta-title">
-          El primer paso<br>hacia tu mejor sonrisa.
-        </h2>
-        <p class="cta-sub">
-          Diagnóstico completo y plan de tratamiento personalizado.<br>
-          Sin compromiso. Con transparencia total desde el primer día.
-        </p>
-        <a href="mailto:hola@clinicadental.com" class="btn-primary btn-large" aria-label="Reservar primera consulta gratuita">
-          Reservar mi consulta
-        </a>
-        <p class="cta-contact">
-          O llámanos:&nbsp;
-          <a href="tel:+34000000000" class="cta-phone">+34 000 000 000</a>
-        </p>
+      <div class="contact-grid">
+
+        <div class="contact-info reveal">
+          <span class="section-eyebrow">Primera consulta</span>
+          <h2 class="contact-title">
+            El primer paso<br>hacia tu<br>mejor sonrisa.
+          </h2>
+          <p class="contact-desc">
+            Diagnóstico completo y plan de tratamiento personalizado. Sin compromiso, con transparencia total desde el primer día.
+          </p>
+          <div class="contact-details">
+            <a href="tel:+34000000000" class="contact-detail-link">+34 000 000 000</a>
+            <a href="mailto:hola@clinicadental.com" class="contact-detail-link">hola@clinicadental.com</a>
+          </div>
+        </div>
+
+        <form class="contact-form reveal" id="contact-form" style="--delay: 0.12s" novalidate aria-label="Formulario de contacto">
+          <div class="form-row">
+            <div class="form-field" id="field-nombre">
+              <label for="nombre" class="form-label">Nombre</label>
+              <input type="text" id="nombre" name="nombre" class="form-input" placeholder="Tu nombre" required autocomplete="given-name" />
+              <span class="form-error-text" role="alert">Por favor, introduce tu nombre.</span>
+            </div>
+            <div class="form-field" id="field-email">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" id="email" name="email" class="form-input" placeholder="tu@email.com" required autocomplete="email" />
+              <span class="form-error-text" role="alert">Email no válido.</span>
+            </div>
+          </div>
+          <div class="form-field" id="field-telefono">
+            <label for="telefono" class="form-label">Teléfono <span class="form-optional">(opcional)</span></label>
+            <input type="tel" id="telefono" name="telefono" class="form-input" placeholder="+34 000 000 000" autocomplete="tel" />
+          </div>
+          <div class="form-field" id="field-tratamiento">
+            <label for="tratamiento" class="form-label">¿Qué tratamiento te interesa?</label>
+            <select id="tratamiento" name="tratamiento" class="form-input form-select" required>
+              <option value="" disabled selected>Seleccionar tratamiento</option>
+              <option value="ortodoncia">Ortodoncia Estética</option>
+              <option value="implantes">Implantes Dentales</option>
+              <option value="carillas">Carillas de Porcelana</option>
+              <option value="blanqueamiento">Blanqueamiento Clínico</option>
+              <option value="consulta">Consulta general</option>
+            </select>
+            <span class="form-error-text" role="alert">Selecciona un tratamiento.</span>
+          </div>
+          <div class="form-field" id="field-mensaje">
+            <label for="mensaje" class="form-label">Mensaje <span class="form-optional">(opcional)</span></label>
+            <textarea id="mensaje" name="mensaje" class="form-input form-textarea" placeholder="Cuéntanos brevemente tu caso…"></textarea>
+          </div>
+          <button type="submit" class="btn-primary form-submit" id="form-submit">Enviar solicitud</button>
+        </form>
+
       </div>
     </div>
   </section>

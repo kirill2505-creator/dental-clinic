@@ -378,3 +378,122 @@ if (document.readyState === 'loading') {
 } else {
   init();
 }
+
+/* ===========================================================================
+   MAGNETIC BUTTONS
+   =========================================================================== */
+
+if (window.matchMedia('(hover: hover)').matches) {
+  document.querySelectorAll('.btn-primary').forEach((btn) => {
+    btn.addEventListener('mousemove', (e) => {
+      const r = btn.getBoundingClientRect();
+      const x = (e.clientX - r.left - r.width  / 2) * 0.2;
+      const y = (e.clientY - r.top  - r.height / 2) * 0.3;
+      btn.style.transform = `translate(${x}px, ${y}px)`;
+    });
+    btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+  });
+}
+
+/* ===========================================================================
+   COUNTER ANIMATION
+   =========================================================================== */
+
+function animateCounter(el) {
+  const target = parseFloat(el.dataset.count);
+  const suffix = el.dataset.suffix || '';
+  const prefix = el.dataset.prefix || '';
+  const isInt  = Number.isInteger(target);
+  const dur    = 1800;
+  const start  = performance.now();
+  function ease(t) { return 1 - Math.pow(1 - t, 4); }
+  function tick(now) {
+    const t   = Math.min((now - start) / dur, 1);
+    const val = target * ease(t);
+    el.textContent = prefix + (isInt ? Math.round(val) : val.toFixed(1)) + suffix;
+    if (t < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+const counterObs = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        animateCounter(entry.target);
+        counterObs.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.6 }
+);
+
+document.querySelectorAll('[data-count]').forEach((el) => counterObs.observe(el));
+
+/* ===========================================================================
+   CONTACT FORM
+   =========================================================================== */
+
+(function() {
+  const form = document.getElementById('contact-form');
+  if (!form) return;
+
+  function getField(id) { return document.getElementById('field-' + id); }
+  function getInput(id) { return form.querySelector('#' + id); }
+
+  function validateEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }
+
+  function clearErrors() {
+    form.querySelectorAll('.has-error').forEach((f) => f.classList.remove('has-error'));
+  }
+
+  function showError(fieldId) {
+    const field = getField(fieldId);
+    if (field) field.classList.add('has-error');
+  }
+
+  function validate() {
+    clearErrors();
+    let ok = true;
+
+    const nombre = getInput('nombre');
+    if (!nombre.value.trim()) { showError('nombre'); ok = false; }
+
+    const email = getInput('email');
+    if (!validateEmail(email.value)) { showError('email'); ok = false; }
+
+    const tratamiento = getInput('tratamiento');
+    if (!tratamiento.value) { showError('tratamiento'); ok = false; }
+
+    return ok;
+  }
+
+  form.querySelectorAll('.form-input').forEach((input) => {
+    input.addEventListener('input', () => {
+      const field = input.closest('.form-field');
+      if (field) field.classList.remove('has-error');
+    });
+  });
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!validate()) {
+      const firstErr = form.querySelector('.has-error .form-input');
+      if (firstErr) firstErr.focus();
+      return;
+    }
+
+    const btn = document.getElementById('form-submit');
+    btn.classList.add('is-sending');
+    btn.textContent = 'Enviando…';
+
+    setTimeout(() => {
+      form.innerHTML = `
+        <div class="form-sent">
+          <div class="form-sent-check" aria-hidden="true"></div>
+          <p class="form-sent-title">Solicitud recibida.</p>
+          <p class="form-sent-sub">Te contactaremos en menos de 24 horas para confirmar tu cita.</p>
+        </div>`;
+    }, 900);
+  });
+})();

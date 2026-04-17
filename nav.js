@@ -1,5 +1,34 @@
 'use strict';
 
+// ── Skip link ──────────────────────────────────────────────────────────────────
+(function() {
+  const skip = document.createElement('a');
+  skip.href = '#main-content';
+  skip.className = 'skip-link';
+  skip.textContent = 'Ir al contenido';
+  document.body.prepend(skip);
+
+  const mainContent = document.querySelector('main') || document.querySelector('.page-main');
+  if (mainContent && !mainContent.id) mainContent.id = 'main-content';
+})();
+
+// ── Scroll progress bar ────────────────────────────────────────────────────────
+(function() {
+  const bar = document.createElement('div');
+  bar.className = 'scroll-progress';
+  bar.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(bar);
+
+  function updateProgress() {
+    const scrolled = window.scrollY;
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = total > 0 ? scrolled / total : 0;
+    bar.style.transform = `scaleX(${progress})`;
+  }
+
+  window.addEventListener('scroll', updateProgress, { passive: true });
+})();
+
 // ── Hamburger menu ─────────────────────────────────────────────────────────────
 const hamburgerBtn  = document.getElementById('nav-hamburger');
 const menuOverlay   = document.getElementById('menu-overlay');
